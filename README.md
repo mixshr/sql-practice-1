@@ -5,7 +5,7 @@
 #### Relational shema
 ![Relation shema](https://upload.wikimedia.org/wikipedia/commons/b/b2/Computer-store-db.png)
 
-#### The crearion code
+#### The creation code
 ``` sql
 CREATE TABLE Manufacturers (
 	Code INTEGER PRIMARY KEY NOT NULL,
@@ -68,127 +68,42 @@ INSERT INTO Boxes (Code, Contents, Value, Warehouse) VALUES ('TU55', 'Papers', 9
 
 2. SELECT name, price FROM products;
 
-SELECT
-    name
-FROM products
-WHERE price <= 200;
+3. SELECT name FROM products WHERE price <= 200;
 
-SELECT
-    *
-FROM products
-WHERE price between 60 AND 120;
+4. SELECT * FROM products WHERE price between 60 AND 120;
 
-SELECT
-    name
-    , price * 100 as price
-FROM products;
+5. SELECT name, price * 100 as price FROM products;
 
-SELECT
-    AVG(price) AS price
-FROM products;
+6. SELECT AVG(price) AS price FROM products;
 
-SELECT
-    AVG(price) AS price
-FROM products
-WHERE Manufacturer = 2;
+7. SELECT AVG(price) AS price FROM products WHERE Manufacturer = 2;
 
-SELECT
-    count(*) AS number
-FROM products
-WHERE price >= 180;
+8. SELECT count(*) AS number FROM products WHERE price >= 180;
 
-SELECT
-    name
-    , price
-FROM products
-WHERE price >= 180
-ORDER BY price DESC, name;
+9. SELECT name, price FROM products WHERE price >= 180 ORDER BY price DESC, name;
 
-SELECT *
-FROM products
-LEFT JOIN manufacturers m on m.code = products.manufacturer;
+10. SELECT * FROM products LEFT JOIN manufacturers m on m.code = products.manufacturer;
 
-SELECT
-    p.name
-    , price
-    , m.name as manufacturer
-FROM products AS p
-LEFT JOIN manufacturers m on m.code = p.manufacturer;
+11. SELECT p.name, price, m.name as manufacturer FROM products AS p LEFT JOIN manufacturers m on m.code = p.manufacturer;
 
-SELECT
-    avg(p.price) AS price
-    , m.name
-FROM products AS p
-LEFT JOIN manufacturers m on m.code = p.manufacturer
-GROUP BY m.name;
+12. SELECT avg(p.price) AS price, m.name FROM products AS p LEFT JOIN manufacturers m on m.code = p.manufacturer GROUP BY m.name;
 
-SELECT
-    AVG(p.price)
-    , p.manufacturer
-FROM products AS p
-GROUP BY p.manufacturer;
+13. SELECT AVG(p.price), p.manufacturer FROM products AS p GROUP BY p.manufacturer;
 
-SELECT
-    AVG(p.price) AS price
-    , m.name
-FROM products AS p
-LEFT JOIN manufacturers m on m.code = p.manufacturer
-GROUP BY m.name;
+14. SELECT AVG(p.price) AS price, m.name FROM products AS p LEFT JOIN manufacturers m on m.code = p.manufacturer GROUP BY m.name;
 
-SELECT
-    name
-FROM manufacturers AS m
-JOIN (
-    SELECT
-    manufacturer
-    , avg(price) AS avg_price
-    FROM products
-    GROUP BY manufacturer
-    ) AS p
-ON p.manufacturer = m.code
-WHERE p.avg_price >= 150;
+15. SELECT name FROM manufacturers AS m JOIN (SELECT manufacturer, avg(price) AS avg_price FROM products GROUP BY manufacturer) AS p ON p.manufacturer = m.code WHERE p.avg_price >= 150;
 
-SELECT
-    name
-    , price
-FROM products
-WHERE code = (
-    SELECT
-    code
-    FROM products
-    GROUP BY code
-    ORDER BY min(price) limit 1
-    );
+16. SELECT name, price FROM products WHERE code = (SELECT code FROM products GROUP BY code ORDER BY min(price) limit 1);
 
-SELECT A.Name, A.Price, F.Name
-   FROM Products A INNER JOIN Manufacturers F
-   ON A.Manufacturer = F.Code
-     AND A.Price =
-     (
-       SELECT MAX(A.Price)
-         FROM Products A
-         WHERE A.Manufacturer = F.Code
-     );
+17. SELECT A.Name, A.Price, F.Name FROM Products A INNER JOIN Manufacturers F ON A.Manufacturer = F.Code AND A.Price = (SELECT MAX(A.Price) FROM Products A WHERE A.Manufacturer = F.Code);
 
-WITH table_avg_price AS (
-    SELECT AVG(price) AS avg_price, count(manufacturer) AS count_products, manufacturer
-    FROM products
-    GROUP BY manufacturer
-)
-SELECT *
-FROM table_avg_price
-WHERE avg_price > 145 AND count_products >= 2;
+18. WITH table_avg_price AS (SELECT AVG(price) AS avg_price, count(manufacturer) AS count_products, manufacturer FROM products GROUP BY manufacturer) SELECT * FROM table_avg_price WHERE avg_price > 145 AND count_products >= 2;
 
-insert into products(code, name, price, manufacturer) values (11, 'Loudspeakers', 70, 2);
+19. insert into products(code, name, price, manufacturer) values (11, 'Loudspeakers', 70, 2);
 
-UPDATE products
-SET name = 'laser printer'
-WHERE code = 8;
+20. UPDATE products SET name = 'laser printer' WHERE code = 8;
 
-UPDATE products
-SET  price = price - price * 0.1;
+21. UPDATE products SET  price = price - price * 0.1;
 
-UPDATE products
-SET price = price - price * 0.1
-WHERE price >= 120
-```
+22. UPDATE products SET price = price - price * 0.1 WHERE price >= 120 ```
