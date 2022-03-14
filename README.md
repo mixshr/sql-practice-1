@@ -106,4 +106,5 @@ INSERT INTO Boxes (Code, Contents, Value, Warehouse) VALUES ('TU55', 'Papers', 9
 
 21. UPDATE products SET  price = price - price * 0.1;
 
-22. UPDATE products SET price = price - price * 0.1 WHERE price >= 120 ```
+22. UPDATE products SET price = price - price * 0.1 WHERE price >= 120 
+```
